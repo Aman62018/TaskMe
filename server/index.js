@@ -19,7 +19,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.json({ data: "hello" });
+  res.json({ data: "helloooooo" });
 });
 
 app.post("/create-account", async (req, res) => {
