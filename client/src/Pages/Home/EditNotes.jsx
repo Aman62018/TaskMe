@@ -1,15 +1,57 @@
 import React, { useState } from "react";
 import TagInput from "../../component/Input/TagInput";
 import { MdClose } from "react-icons/md";
+import axiosInstance from "../utils/axiosInstance";
 
-const EditNotes = ({ noteData, type, onClose }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [tag, setTag] = useState([]);
+const EditNotes = ({
+  noteData,
+  type,
+  getAllNotes,
+  onClose,
+  showToastMessage,
+}) => {
+  const [title, setTitle] = useState(noteData?.title || "");
+  const [content, setContent] = useState(noteData?.content || "");
+  const [tags, setTags] = useState(noteData?.tags || []);
   const [error, setError] = useState(null);
 
-  const addNewNote = async () => {};
-  const EditNote = async () => {};
+  const addNewNote = async () => {
+    try {
+      const response = await axiosInstance.post("/add-note", {
+        title,
+        content,
+        tags,
+      });
+      if (response.data && response.data.note) {
+        showToastMessage("Note Added Successfully");
+        getAllNotes();
+        onClose();
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.message) {
+        setError(error.response.data.message);
+      }
+    }
+  };
+  const EditNote = async () => {
+    const noteId = noteData._id;
+    try {
+      const response = await axiosInstance.put("/edit-note/" + noteId, {
+        title,
+        content,
+        tags,
+      });
+      if (response.data && response.data.note) {
+        showToastMessage("Note Updated Successfully");
+        getAllNotes();
+        onClose();
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.message) {
+        setError(error.response.data.message);
+      }
+    }
+  };
 
   const handleAddNote = () => {
     if (!title) {
@@ -59,12 +101,12 @@ const EditNotes = ({ noteData, type, onClose }) => {
         />
       </div>
       <div className="mt-2">
-        <label className="input-label">Tags</label>
-        <TagInput tags={tag} setTags={setTag} />
+        <label className="input-label">TAGS</label>
+        <TagInput tags={tags} setTags={setTags} />
       </div>
       {error && <p className="text-red-500 text-xs pt-4">{error}</p>}
       <button className="btn-primary font-medium  p-3" onClick={handleAddNote}>
-        Add
+        {type === "edit" ? "UPDATE" : "ADD"}
       </button>
     </div>
   );
