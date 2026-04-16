@@ -3,16 +3,21 @@ import ProfileInfo from "../Cards/ProfileInfo";
 import { Navigate, useNavigate } from "react-router-dom";
 import SearchBar from "../SearcgBar/SearchBar";
 
-const Navbar = ({ userInfo }) => {
+const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const onLogout = () => {
     localStorage.clear();
     navigate("/login");
   };
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    if (searchQuery) {
+      onSearchNote(searchQuery);
+    }
+  };
   const onClearSearch = () => {
     setSearchQuery("");
+    handleClearSearch();
   };
   return (
     <div className="bg-white justify-between flex items-center py-2 px-6 drop-shadow">

@@ -8,6 +8,9 @@ import { data, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import axiosInstance from "../utils/axiosInstance";
 import Toast from "../../component/ToastMessage/Toast";
+import EmptyCard from "../../component/EmptyCard/EmptyCard";
+import addNotesImg from "../../assets/empty-notes.png";
+import noDataImg from "../../assets/no-data.png";
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -20,7 +23,7 @@ const Home = () => {
     message: "",
     type: "add",
   });
-
+  const [isSearch, setIsSearch] = useState(false);
   const [allNotes, setAllNotes] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
@@ -75,7 +78,7 @@ const Home = () => {
       const response = await axiosInstance.delete("/delete-note/" + noteId);
 
       if (response.data && !response.data.error) {
-        showToastMessage("Note Deleted Successfully" + "delete");
+        showToastMessage("Note Deleted Successfully", "delete");
         getAllNotes();
       }
     } catch (error) {
@@ -89,6 +92,42 @@ const Home = () => {
     }
   };
 
+  const onSearchNote = async (query) => {
+    try {
+      const response = await axiosInstance.get("/search-notes", {
+        params: { query },
+      });
+      if (response.data && response.data.notes) {
+        setIsSearch(true);
+        setAllNotes(response.data.notes);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleClearSearch = () => {
+    setIsSearch(false);
+    getAllNotes();
+  };
+
+  const updateIspinned = async (noteData) => {
+    const noteId = noteData._id;
+    try {
+      const response = await axiosInstance.put(
+        "/update-note-pinned/" + noteId,
+        {
+          isPinned: !noteData.isPinned,
+        },
+      );
+      if (response.data && response.data.note) {
+        showToastMessage("Note Updated Successfully");
+        getAllNotes();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getUserInfo();
     getAllNotes();
@@ -96,7 +135,11 @@ const Home = () => {
   }, []);
   return (
     <>
-      <Navbar userInfo={userInfo} />
+      <Navbar
+        userInfo={userInfo}
+        onSearchNote={onSearchNote}
+        handleClearSearch={handleClearSearch}
+      />
       <div className="container mx-auto">
         {allNotes.length > 0 ? (
           <div className="grid grid-cols-3 gap-4 mt-8">
@@ -110,12 +153,20 @@ const Home = () => {
                 isPinned={item.isPinned}
                 onDelete={() => deleteNote(item)}
                 onEdit={() => handleEdit(item)}
-                onPinNote={() => {}}
+                onPinNote={() => updateIspinned(item)}
               />
             ))}
           </div>
         ) : (
-          <EmptyCard />
+          <EmptyCard
+            imgSrc={isSearch ? noDataImg : addNotesImg}
+            message={
+              isSearch
+                ? `Oops! no notes found matching your search.`
+                : `Start creating your first note! Click the 'Add' button to write down your 
+              thoughts,ideas, and reminders. Let's get started!`
+            }
+          />
         )}
       </div>
       <button
@@ -156,4 +207,5 @@ const Home = () => {
     </>
   );
 };
+
 export default Home;
