@@ -10,11 +10,17 @@ Users can add, delete, and manage tasks, as well as pin important tasks for quic
 
 🚀 Features
 ✅ Add new tasks
+
 🗑️ Delete tasks
+
 📌 Pin important tasks
+
 🔍 View all tasks in organized format
+
 ⚡ Fast and responsive UI
+
 🎯 Simple and user-friendly design
+
 🛠️ Tech Stack
 
 Frontend:
@@ -34,9 +40,13 @@ MongoDB
 Other Tools:
 
 Axios (API calls)
+
 JWT (Authentication)
+
 Vercel (Deployment)
+
 📂 Project Structure
+
 TaskMe/
 │
 ├── frontend/
