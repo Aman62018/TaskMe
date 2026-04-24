@@ -31,14 +31,14 @@ const SignUp = () => {
     setError("");
 
     try {
-      const response = await axiosInstance.post("/create-account", {
+      const response = await axiosInstance.post("/user/register", {
         fullName: name,
         email: email,
         password: password,
       });
 
       if (response.data && response.data.error) {
-        console.log("hello meri jaan");
+        console.log("hello");
         setError(response.data.message);
         return;
       }

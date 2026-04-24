@@ -46,7 +46,7 @@ const Home = () => {
   };
   const getUserInfo = async () => {
     try {
-      const response = await axiosInstance.get("/get-user");
+      const response = await axiosInstance.get("/user/getUser");
       console.log(response);
       if (response.data && response.data.user) {
         setUserInfo(response.data.user);
@@ -61,7 +61,7 @@ const Home = () => {
 
   const getAllNotes = async () => {
     try {
-      const response = await axiosInstance.get("/get-all-note");
+      const response = await axiosInstance.get("/notes/getAllNotes");
 
       if (response.data && response.data.notes) {
         // let arr = new Array(response.data.notes);
@@ -75,7 +75,7 @@ const Home = () => {
   const deleteNote = async (data) => {
     const noteId = data._id;
     try {
-      const response = await axiosInstance.delete("/delete-note/" + noteId);
+      const response = await axiosInstance.delete("/notes/delete/" + noteId);
 
       if (response.data && !response.data.error) {
         showToastMessage("Note Deleted Successfully", "delete");
@@ -94,7 +94,7 @@ const Home = () => {
 
   const onSearchNote = async (query) => {
     try {
-      const response = await axiosInstance.get("/search-notes", {
+      const response = await axiosInstance.get("/notes/search", {
         params: { query },
       });
       if (response.data && response.data.notes) {
@@ -114,7 +114,7 @@ const Home = () => {
     const noteId = noteData._id;
     try {
       const response = await axiosInstance.put(
-        "/update-note-pinned/" + noteId,
+        "/notes/updatePinned/" + noteId,
         {
           isPinned: !noteData.isPinned,
         },

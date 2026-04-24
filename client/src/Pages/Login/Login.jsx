@@ -26,7 +26,7 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axiosInstance.post("/login", {
+      const response = await axiosInstance.post("/user/login", {
         email,
         password,
       });
@@ -76,7 +76,7 @@ const Login = () => {
             <p className="text-sm text-center mt-4">
               Not registered yet?{""}
               <Link
-                to="/signup"
+                to="/SignUp"
                 className="font-medium underline text-blue-500"
               >
                 Create an Account
