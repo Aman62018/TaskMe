@@ -64,18 +64,22 @@ TaskMe/
 │   └── server.js
 │
 └── README.md
+
 ⚙️ How It Works
+
 User creates an account and logs in
-Tasks are stored in MongoDB database
-User can:
-Add new tasks
-Delete tasks
+Tasks are stored in MongoDB database  
+User can:  
+Add new tasks   
+Delete tasks   
 Pin important tasks
 Backend APIs handle all CRUD operations
 Frontend communicates with backend using Axios  
+
 Aman Kumar
 🔗 LinkedIn: https://www.linkedin.com/in/aman-kumar-3857a5296/
 
 ⭐ Conclusion
 
-TaskMe is a beginner-friendly full-stack project that demonstrates CRUD operations, authentication, and frontend-backend integration using the MERN stack. It is ideal for showcasing skills in web development and UI design.
+TaskMe is a beginner-friendly full-stack project that demonstrates CRUD operations, authentication,
+and frontend-backend integration using the MERN stack. It is ideal for showcasing skills in web development and UI design.
