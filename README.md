@@ -1,27 +1,31 @@
-📌 TaskMe – Task Management Web App
-🔗 Live Demo
+ TaskMe – Task Management Web App
+ Live Demo
 
-👉 https://task-me-two.vercel.app/
+ https://task-me-two.vercel.app/
 
-📖 Overview
+ Overview
 
 TaskMe is a simple and efficient task management web application that helps users organize their daily activities.
 Users can add, delete, and manage tasks, as well as pin important tasks for quick access. The app is designed with a clean UI and smooth user experience.
 
-🚀 Features
-✅ Add new tasks
 
-🗑️ Delete tasks
+ Features Implemented
 
-📌 Pin important tasks
+ User Authentication (Signup/Login with JWT)
 
-🔍 View all tasks in organized format
+ Add new tasks
 
-⚡ Fast and responsive UI
+ Delete tasks
 
-🎯 Simple and user-friendly design
+ Pin/Unpin important tasks
 
-🛠️ Tech Stack
+ View all tasks in organized format
+
+ Real-time UI updates
+
+ Fast and responsive design
+
+ Tech Stack
 
 Frontend:
 
@@ -45,27 +49,15 @@ JWT (Authentication)
 
 Vercel (Deployment)
 
-📂 Project Structure
+Configure Environment Variables
 
-TaskMe/
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── assets/
-│   │   └── App.jsx
-│
-├── backend/
-│   ├── controllers/
-│   ├── routes/
-│   ├── models/
-│   ├── middleware/
-│   └── server.js
-│
-└── README.md
+Create a .env file in the backend folder:
 
-⚙️ How It Works
+PORT=8000
+MONGO_URI=your_mongodb_connection_string
+ACCESS_TOKEN_SECRET=your_secret_key
+
+How It Works
 
 User creates an account and logs in
 Tasks are stored in MongoDB database  
